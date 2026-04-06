@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WA Summarizer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav>
+  <span class="nav-brand">WA Summarizer</span>
+  <div class="nav-divider"></div>
+
+  <!-- Provider tabs -->
+  <div class="provider-tabs" id="providerTabs">
+    <button class="provider-tab active" data-provider="claude">
+      <span class="dot" style="background:#a78bfa"></span>
+      <span>Claude</span>
+    </button>
+    <button class="provider-tab" data-provider="openai">
+      <span class="dot" style="background:#38bdf8"></span>
+      <span>OpenAI</span>
+    </button>
+    <button class="provider-tab" data-provider="oss">
+      <span class="dot" style="background:#fb923c"></span>
+      <span>Open Source</span>
+    </button>
+  </div>
+
+  <!-- Model select -->
+  <div class="model-wrap">
+    <select id="modelSelect"></select>
+    <span class="cost-pill" id="costPill">—</span>
+  </div>
+
+  <div class="nav-divider"></div>
+
+  <!-- API Key -->
+  <div class="key-wrap">
+    <span class="key-label">OpenRouter Key</span>
+    <div class="key-input-row">
+      <input type="password" id="apiKeyInput"
+        placeholder="sk-or-v1-..." autocomplete="off" spellcheck="false" />
+      <button id="toggleKey" title="Show/hide">👁</button>
+    </div>
+    <div class="key-dot" id="keyDot" title="No key entered"></div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
+<main>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">💬 WhatsApp Chat Summarizer</div>
+      <div class="card-sub">Upload a .txt export — clean it up or summarize with AI</div>
+    </div>
+
+    <!-- Upload -->
+    <div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".txt" />
+        <div class="upload-icon">📂</div>
+        <p>Drop your <strong>.txt</strong> export here<br>or click to browse</p>
+      </div>
+      <div class="file-pill" id="filePill">
+        <span class="file-icon">📄</span>
+        <span id="fileName"></span>
+        <button id="removeFile" title="Remove">✕</button>
+      </div>
+    </div>
+
+    <!-- No-key notice -->
+    <div class="notice warn" id="noKeyNotice">
+      ⚠️ <strong>No API key.</strong> Without one, the button will clean media lines only — no AI summary.<br>
+      Get a free OpenRouter key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> — 
+      it covers Claude, GPT-4o, and all the open-source models below.
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-group">
+        <label for="dateFromInput">From Date (DD/MM/YYYY)</label>
+        <input type="text" id="dateFromInput" placeholder="Leave empty for start" />
+      </div>
+      <div class="filter-group">
+        <label for="dateToInput">To Date (DD/MM/YYYY)</label>
+        <input type="text" id="dateToInput" placeholder="Leave empty for end" />
+      </div>
+      <div class="filter-group">
+        <label for="charLimit">Character Limit: <span id="charLimitDisplay">40000</span></label>
+        <input type="range" id="charLimit" min="1000" max="100000" step="1000" value="40000" />
+        <div class="char-limit-info" id="charLimitInfo"></div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button id="summarizeBtn">Summarize</button>
+      <button id="clearBtn">Clear</button>
+    </div>
+
+    <!-- Output -->
+    <div>
+      <div class="output-header">
+        <div class="output-label" id="outputLabel">Output</div>
+        <div class="output-model-tag" id="outputModelTag"></div>
+      </div>
+      <div id="outputText" role="region" aria-live="polite">Your summary will appear here…</div>
+      <div class="stats" id="stats"></div>
+    </div>
+
+    <!-- OpenRouter explainer -->
+    <div class="or-info" id="orInfo">
+      <strong>Why OpenRouter?</strong> It's a single API that routes to every provider —
+      Anthropic, OpenAI, Meta, Mistral, DeepSeek — under one key and one bill.
+      You pay per token at the model's real cost, nothing extra. Sign up free at
+      <a href="https://openrouter.ai" target="_blank">openrouter.ai</a>.
+    </div>
+
+    <!-- Ad Space -->
+    <div class="ad-space">
+      <div class="ad-placeholder">
+        <div class="ad-text">Advertisement</div>
+        <p>Your ad here</p>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+<script src="main.js"></script>
+</html>
